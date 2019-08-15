@@ -3,6 +3,7 @@
 
 class Tests {
   static public function main():Void {
+    ExcTests.run();
     B64Tests.run();
     CrypTests.run();
     OptTests.run();
