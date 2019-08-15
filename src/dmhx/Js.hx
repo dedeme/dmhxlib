@@ -5,11 +5,17 @@ package dmhx;
 
 import haxe.Json;
 import haxe.ds.Option;
+import dmhx.Exc;
 
 /**
     Json utilities
 **/
 abstract Js (Dynamic) {
+
+  static function getType (e: Dynamic): String {
+    return Std.string(Type.typeof(e));
+  }
+
   public function new (js: Dynamic) {
     this = js;
   }
@@ -17,11 +23,11 @@ abstract Js (Dynamic) {
   /**
       Trys Json.parse(s) and if it fails, returns None.
   **/
-  public static function from (s: String): Option<Js> {
+  public static function from (s: String): Js {
     try {
-      return Some(new Js(Json.parse(s)));
+      return new Js(Json.parse(s));
     } catch (e:Dynamic) {
-      return None;
+      Exc.raise(Exc.illegalArgument('s = $s', "Json string", "Invalid Json"));
     }
   }
 
@@ -84,47 +90,53 @@ abstract Js (Dynamic) {
     return wo(r);
   }
 
-  public static function rb (js: Js): Option<Bool> {
-    try{
-      return Some(cast(js, Bool));
-    } catch (e:String) {
-      return None;
-    }
-  }
-
-  public static function ri (js: Js): Option<Int> {
+  @:to
+  public static function rb (js: Js): Bool {
     try {
-      return Some(cast(js, Int));
+      return cast(js, Bool);
     } catch (e:String) {
-      return None;
+      Exc.raise(Exc.illegalArgument("js", "Bool", getType(js)));
     }
   }
 
-  public static function rf (js: Js): Option<Float> {
+  @:to
+  public static function ri (js: Js): Int {
     try {
-      return Some(cast(js, Float));
+      return cast(js, Int);
     } catch (e:String) {
-      return None;
+      Exc.raise(Exc.illegalArgument("js", "Int", getType(js)));
     }
   }
 
-  public static function rs (js: Js): Option<String> {
+  @:to
+  public static function rf (js: Js): Float {
     try {
-      return Some(cast(js, String));
+      return cast(js, Float);
     } catch (e:String) {
-      return None;
+      Exc.raise(Exc.illegalArgument("js", "Float", getType(js)));
     }
   }
 
-  public static function ra (js: Js): Option<Array<Js>> {
+  @:to
+  public static function rs (js: Js): String {
     try {
-      return Some(cast(js));
+      return cast(js, String);
     } catch (e:String) {
-      return None;
+      Exc.raise(Exc.illegalArgument("js", "String", getType(js)));
     }
   }
 
-  public static function ro (js: Js): Option<Map<String, Js>> {
+  @:to
+  public static function ra (js: Js): Array<Js> {
+    try {
+      return cast(js);
+    } catch (e:String) {
+      Exc.raise(Exc.illegalArgument("js", "Array<Js>", getType(js)));
+    }
+  }
+
+  @:to
+  public static function ro (js: Js): Map<String, Js> {
     try {
       final a:Array<Js> = cast(js);
       final r = new Map<String, Js>();
@@ -133,9 +145,9 @@ abstract Js (Dynamic) {
         r.set(cast(a[i], String), a[i + 1]);
         i += 2;
       }
-      return Some(r);
+      return r;
     } catch (e:String) {
-      return None;
+      Exc.raise(Exc.illegalArgument("js", "Map<String, Js>", getType(js)));
     }
   }
 
@@ -143,34 +155,19 @@ abstract Js (Dynamic) {
       Read an array whose elements can be deserialized with 'ffrom'.<p>
       If it fails, returns None.
   **/
-  public static function rArray<T> (
-    js:Js, ffrom: Js -> Option<T>
-  ): Option<Array<T>> {
-    return switch (ra(js)) {
-      case Some(a): Opt.map(a, ffrom);
-      case None: None;
-    }
+  public static function rArray<T> (js:Js, ffrom: Js -> T): Array<T> {
+    return js.ra().map(ffrom);
   }
 
   /**
       Read a Map whose values can be deserialized with 'ffrom'.<p>
       If it fails, returns None.
   **/
-  public static function rMap<T> (
-    js:Js, ffrom: Js -> Option<T>
-  ): Option<Map<String, T>> {
+  public static function rMap<T> (js:Js, ffrom: Js -> T): Map<String, T> {
     final r = new Map<String, T>();
-    switch (ro(js)) {
-      case Some(o):
-        for (k => v in o) {
-          switch (ffrom(v)) {
-            case Some(e): r.set(k, e);
-            case None: return None;
-          }
-        }
-      case None: return None;
-    }
-    return Some(r);
+    for (k => v in js.ro())
+      r.set(k, ffrom(v));
+    return r;
   }
 
 }
