@@ -3,13 +3,13 @@
 
 class Tests {
   static public function main():Void {
-//    B64Tests.run();
-//    CrypTests.run();
-//    OptTests.run();
-//    ItTests.run();
-//    JsTests.run();
-//    DecTests.run();
-//    DtTests.run();
+    B64Tests.run();
+    CrypTests.run();
+    OptTests.run();
+    ItTests.run();
+    JsTests.run();
+    DecTests.run();
+    DtTests.run();
     PathTests.run();
   }
 }

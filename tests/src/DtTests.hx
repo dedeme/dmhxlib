@@ -56,7 +56,9 @@ class DtTests {
     t.eq(d.getHours(), 13);
     t.eq(d.getMinutes(), 12);
     t.eq(d.getSeconds(), 50);
-trace(Dt.weekDay(Dt.mk(14, 7, 2019)));
+
+    t.eq(Dt.weekDay(Dt.mk(14, 7, 2019)), 0);
+
     t.log();
   }
 }

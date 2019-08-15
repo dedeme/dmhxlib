@@ -257,6 +257,11 @@ class ItTests {
     t.eq(tpa3.length, 1);
     t.eq(tpa3[0], Tp3.mk("a", 2, 3), Tp3.equals);
 
+    final m1 = ["a" => 1, "b" => 2];
+    final m2 = Opt.get(It.fromMap(m1).toMap());
+    t.eq(m2["a"], 1);
+    t.eq(m2["b"], 2);
+
     t.log();
   }
 }

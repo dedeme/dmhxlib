@@ -4,6 +4,7 @@
 package dmhx;
 
 import haxe.ds.Option;
+import haxe.ds.StringMap;
 import dmhx.Tp;
 
 /**
@@ -44,12 +45,29 @@ class It<T> {
     return new It(it.hasNext, it.next);
   }
 
+  /**
+      Creates an It over characters of 's'.
+  **/
   public static function fromString (s:String): It<String> {
     final len = s.length;
     var ix = 0;
     return new It(
       () -> ix < len,
       () -> s.charAt(ix++)
+    );
+  }
+
+  /**
+      Creates an It over keys-values of 'm'.
+  **/
+  public static function fromMap <V>(m:Map<String, V>): It<Tp<String, V>> {
+    final kvs = m.keyValueIterator();
+    return new It(
+      () -> kvs.hasNext(),
+      () -> {
+        final kv = kvs.next();
+        Tp.mk(kv.key, kv.value);
+      }
     );
   }
 
@@ -437,6 +455,23 @@ class It<T> {
     }
     r.add("]");
     return r.toString();
+  }
+
+  /**
+      Returns a Map from an It<Tp<String, V>> created with 'It.fromMap'.
+  **/
+  public function toMap<V> (): Option<Map<String, V>> {
+    try {
+      final it:It<Tp<String, V>> = cast(this);
+      final r = new StringMap<V>();
+      while (it.hasNext()) {
+        final nx = it.next();
+        r.set(nx.e1, nx.e2);
+      }
+      return cast(Some(r));
+    } catch (e:Dynamic) {
+      return None;
+    }
   }
 
   // Lazy ----------------------------------------------------------------------
