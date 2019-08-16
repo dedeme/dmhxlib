@@ -5,7 +5,6 @@ package dmhx;
 
 import haxe.ds.Option;
 import haxe.ds.StringMap;
-import dmhx.Tp;
 
 /**
     Lazy iterator.
@@ -341,7 +340,7 @@ class It<T> {
   /**
       Returns the first element which makes 'fn' 'true'.
   **/
-  public function find (fn:(T) -> Bool): Option<T> {
+  public function find (fn:T -> Bool): Option<T> {
     while (hasNext()) {
       final e = next();
       if (fn(e))
@@ -353,7 +352,7 @@ class It<T> {
   /**
       Returns the last element which makes 'fn' 'true'.
   **/
-  public function findLast (fn:(T) -> Bool): Option<T> {
+  public function findLast (fn:T -> Bool): Option<T> {
     var r = None;
     while (hasNext()) {
       final e = next();
@@ -376,6 +375,20 @@ class It<T> {
     } else {
       while (hasNext())
         if (feq(next(), e)) return c; else ++c;
+    }
+    return -1;
+  }
+
+  /**
+      Returns the index of the first element of 'this' that is 'true' with 'fn'
+      or -1 if none matches the condition.
+  **/
+  public function indexf (fn:T -> Bool): Int {
+    var c = 0;
+    while (hasNext()) {
+      if (fn(next()))
+        return c;
+      ++c;
     }
     return -1;
   }
@@ -409,6 +422,21 @@ class It<T> {
   }
 
   /**
+      Returns the last index of the first element of 'this' that is 'true' with
+      'fn' or -1 if none matches the condition.
+  **/
+  public function lastIndexf (fn:T -> Bool): Int {
+    var r = -1;
+    var c = 0;
+    while (hasNext()) {
+      if (fn(next()))
+        r = c;
+      ++c;
+    }
+    return r;
+  }
+
+  /**
       Returns the value resulting to apply 'fn' over 'seed' and the first
       element of 'this', and after that to apply 'fn' to the previous result
       in turn.<p>
@@ -423,7 +451,7 @@ class It<T> {
   /**
       Returns 'true' if al least one element of 'this' is 'true' with 'fn'.
   **/
-  public function some (fn:(T) -> Bool): Bool {
+  public function some (fn:T -> Bool): Bool {
     while (hasNext())
       if (fn(next()))
         return true;

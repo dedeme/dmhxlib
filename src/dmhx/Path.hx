@@ -3,8 +3,6 @@
 
 package dmhx;
 
-import dmhx.It;
-
 /**
     Utilities for managing paths with '/' as separator.
 **/

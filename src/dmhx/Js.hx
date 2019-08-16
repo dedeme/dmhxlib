@@ -5,7 +5,6 @@ package dmhx;
 
 import haxe.Json;
 import haxe.ds.Option;
-import dmhx.Exc;
 
 /**
     Json utilities

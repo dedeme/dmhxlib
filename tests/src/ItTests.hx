@@ -29,7 +29,9 @@ class ItTests {
     t.eq(It.from(a).unshift("A").toString(), "It[A]");
     t.not(It.from(a).contains(""));
     t.eq(It.from(a).index(""), -1);
+    t.eq(It.from(a).indexf(e -> e == ""), -1);
     t.eq(It.from(a).lastIndex(""), -1);
+    t.eq(It.from(a).lastIndexf(e -> e == ""), -1);
     t.yes(It.from(a).every(e -> e == "a"));
     t.not(It.from(a).some(e -> e == "a"));
     t.eq(Opt.get(It.from(a).find(e -> e == "a")), null);
@@ -66,14 +68,20 @@ class ItTests {
     t.eq(It.from(a).index("zza"), -1);
     t.eq(It.from(a).index(
       "zza",
-      (e1, e2) -> e1.charAt(3) == e2.charAt(3)
+      (e1, e2) -> e1.charAt(1) == e2.charAt(1)
     ), 0);
+    t.eq(It.from(a).indexf(e -> e == "zzz"), 0);
+    t.eq(It.from(a).indexf(e -> e == "zza"), -1);
+    t.eq(It.from(a).indexf(e -> e.charAt(2) == "z"), 0);
     t.eq(It.from(a).lastIndex("zzz"), 0);
     t.eq(It.from(a).lastIndex("zza"), -1);
     t.eq(It.from(a).lastIndex(
       "zza",
-      (e1, e2) -> e1.charAt(3) == e2.charAt(3)
+      (e1, e2) -> e1.charAt(1) == e2.charAt(1)
     ), 0);
+    t.eq(It.from(a).lastIndexf(e -> e == "zzz"), 0);
+    t.eq(It.from(a).lastIndexf(e -> e == "zza"), -1);
+    t.eq(It.from(a).lastIndexf(e -> e.charAt(2) == "z"), 0);
     t.yes(It.from(a).every(e -> e == "zzz"));
     t.yes(It.from(a).some(e -> e == "zzz"));
     t.not(It.from(a).every(e -> e == "a"));
@@ -192,9 +200,15 @@ class ItTests {
     t.eq(It.from(is2).index(1), 0);
     t.eq(It.from(is2).index(4), -1);
     t.eq(It.from(is2).index(4, (e1, e2) -> e1 % 2 == e2 % 2), 1);
+    t.eq(It.from(is2).indexf(e -> e == 1), 0);
+    t.eq(It.from(is2).indexf(e -> e == 4), -1);
+    t.eq(It.from(is2).indexf(e -> e % 2 == 0), 1);
     t.eq(It.from(is2).lastIndex(1), 3);
     t.eq(It.from(is2).lastIndex(4), -1);
     t.eq(It.from(is2).lastIndex(4, (e1, e2) -> e1 % 2 == e2 % 2), 4);
+    t.eq(It.from(is2).lastIndexf(e -> e == 1), 3);
+    t.eq(It.from(is2).lastIndexf(e -> e == 4), -1);
+    t.eq(It.from(is2).lastIndexf(e -> e % 2 == 0), 4);
     t.eq(Opt.get(It.from(is2).find(e -> e == 0)), null);
     t.eq(Opt.get(It.from(is2).findLast(e -> e == 0)), null);
     t.eq(It.from(is2).filter(e -> e == 0).count(), 0);

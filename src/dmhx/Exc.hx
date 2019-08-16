@@ -17,13 +17,13 @@ class Exc {
 
   public static function range (
     begin:Int, end:Int, index:Int, ?pos:PosInfos
-  ) {
+  ): String {
     return show('Index out of range : $index out of [$begin - $end]', pos);
   }
 
   public static function illegalArgument<T> (
     argumentName:String, expected:T, actual:T, ?pos:PosInfos
-  ) {
+  ): String {
     return show(
       'Illegal argument : Variable "$argumentName"\n' +
       'Expected: ${Std.string(expected)}\nActual: ${Std.string(actual)}',
