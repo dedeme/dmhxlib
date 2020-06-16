@@ -98,7 +98,7 @@ class Ui {
       return new Map();
     }
     return It.from(search.substring(1).split("&")).reduce(
-      Tp.mk(new Map(), 0),
+      new Tp(new Map(), 0),
       function (s, e) {
         final ix = e.indexOf("=");
         if (ix == -1) {
@@ -108,7 +108,7 @@ class Ui {
             StringTools.urlDecode(e.substring(0, ix)),
             StringTools.urlDecode(e.substring(ix + 1)));
         }
-        return Tp.mk(s.e1, s.e2 + 1);
+        return new Tp(s.e1, s.e2 + 1);
       }
     ).e1;
   }
