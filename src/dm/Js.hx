@@ -1,32 +1,30 @@
-// Copyright 13-Aug-2019 ºDeme
+// Copyright 15-Jun-2020 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-package dmhx;
+package dm;
 
 import haxe.Json;
 import haxe.ds.Option;
 
-/**
-    Json utilities
-**/
+/// Json utilities
 abstract Js (Dynamic) {
 
   static function getType (e: Dynamic): String {
     return Std.string(Type.typeof(e));
   }
 
-  public function new (js: Dynamic) {
+  function new (js: Dynamic) {
     this = js;
   }
 
   /**
-      Trys Json.parse(s) and if it fails, returns None.
+      Trys Json.parse(s) and if it fails, throws a exception.
   **/
   public static function from (s: String): Js {
     try {
       return new Js(Json.parse(s));
-    } catch (e:Dynamic) {
-      Exc.raise(Exc.illegalArgument('s = $s', "Json string", "Invalid Json"));
+    } catch (e: Dynamic) {
+      throw Exc.illegalArgument('s = $s', "Json string", "Invalid Json");
     }
   }
 
@@ -93,8 +91,8 @@ abstract Js (Dynamic) {
   public static function rb (js: Js): Bool {
     try {
       return cast(js, Bool);
-    } catch (e:String) {
-      Exc.raise(Exc.illegalArgument("js", "Bool", getType(js)));
+    } catch (e: String) {
+      throw Exc.illegalArgument("js", "Bool", getType(js));
     }
   }
 
@@ -102,8 +100,8 @@ abstract Js (Dynamic) {
   public static function ri (js: Js): Int {
     try {
       return cast(js, Int);
-    } catch (e:String) {
-      Exc.raise(Exc.illegalArgument("js", "Int", getType(js)));
+    } catch (e: String) {
+      throw Exc.illegalArgument("js", "Int", getType(js));
     }
   }
 
@@ -111,8 +109,8 @@ abstract Js (Dynamic) {
   public static function rf (js: Js): Float {
     try {
       return cast(js, Float);
-    } catch (e:String) {
-      Exc.raise(Exc.illegalArgument("js", "Float", getType(js)));
+    } catch (e: String) {
+      throw Exc.illegalArgument("js", "Float", getType(js));
     }
   }
 
@@ -120,8 +118,8 @@ abstract Js (Dynamic) {
   public static function rs (js: Js): String {
     try {
       return cast(js, String);
-    } catch (e:String) {
-      Exc.raise(Exc.illegalArgument("js", "String", getType(js)));
+    } catch (e: String) {
+      throw Exc.illegalArgument("js", "String", getType(js));
     }
   }
 
@@ -129,8 +127,8 @@ abstract Js (Dynamic) {
   public static function ra (js: Js): Array<Js> {
     try {
       return cast(js);
-    } catch (e:String) {
-      Exc.raise(Exc.illegalArgument("js", "Array<Js>", getType(js)));
+    } catch (e: String) {
+      throw Exc.illegalArgument("js", "Array<Js>", getType(js));
     }
   }
 
@@ -145,8 +143,8 @@ abstract Js (Dynamic) {
         i += 2;
       }
       return r;
-    } catch (e:String) {
-      Exc.raise(Exc.illegalArgument("js", "Map<String, Js>", getType(js)));
+    } catch (e: String) {
+      throw Exc.illegalArgument("js", "Map<String, Js>", getType(js));
     }
   }
 

@@ -1,9 +1,9 @@
 // Copyright 14-Aug-2019 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-import dmhx.Test;
-import dmhx.Dt;
-import dmhx.Opt;
+import dm.Test;
+import dm.Dt;
+import dm.Opt;
 
 class DtTests {
   public static function run() {
@@ -11,9 +11,9 @@ class DtTests {
 
     var d = Date.now();
     t.eq(Dt.to(d).length, 8);
-    t.eq(Dt.dif(Dt.add(Dt.add(d, 25), -25), d), 0);
-    t.eq(Dt.dif(Dt.add(Dt.add(d, 30), -25), d), 5);
-    t.eq(Dt.dif(Dt.add(Dt.add(d, 20), -25), d), -5);
+    t.eq(Dt.df(Dt.add(Dt.add(d, 25), -25), d), 0);
+    t.eq(Dt.df(Dt.add(Dt.add(d, 30), -25), d), 5);
+    t.eq(Dt.df(Dt.add(Dt.add(d, 20), -25), d), -5);
 
     d = Dt.mk(2, 4, 2010);
     t.eq(Dt.to(d), "20100402");
@@ -38,8 +38,8 @@ class DtTests {
     var d2 = Dt.mk(6, 3, 2013);
     var d3 = Dt.mk(30, 4, 2013);
 
-    t.eq(Dt.dif(d1, d2), -5);
-    t.eq(Dt.dif(d3, d2), 55);
+    t.eq(Dt.df(d1, d2), -5);
+    t.eq(Dt.df(d3, d2), 55);
     t.yes(Dt.eq(d1, Dt.add(d2, -5)));
     t.yes(Dt.eq(d3, Dt.add(d2, 55)));
 
@@ -58,6 +58,21 @@ class DtTests {
     t.eq(d.getSeconds(), 50);
 
     t.eq(Dt.weekDay(Dt.mk(14, 7, 2019)), 0);
+
+    d = Date.now();
+    var d0 = Dt.addMillis(d, 0);
+    d1 = Dt.addMillis(d, 5);
+    d2 = Dt.addMillis(d, -15);
+
+    t.yes(Dt.eqTime(d, d0));
+    t.not(Dt.eqTime(d, d1));
+    t.not(Dt.eqTime(d, d2));
+    t.eq(Dt.compareTime(d, d0), 0);
+    t.yes(Dt.compareTime(d, d1) < 0);
+    t.yes(Dt.compareTime(d, d2) > 0);
+    t.eq(Dt.dfMillis(d, d0), 0);
+    t.eq(Dt.dfMillis(d, d1), -5);
+    t.eq(Dt.dfMillis(d, d2), 15);
 
     t.log();
   }

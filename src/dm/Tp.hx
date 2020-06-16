@@ -1,23 +1,19 @@
-// Copyright 09-Aug-2019 ºDeme
+// Copyright 15-Jun-2020 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-package dmhx;
+package dm;
 
-private typedef Tuple<T, U> = { e1:T, e2:U }
+private typedef Tuple<T, U> = { e1: T, e2:U }
 
-/**
-    Tuple of two elements.
-**/
+/// Tuple of two elements.
 abstract Tp<T, U> (Tuple<T, U>) {
 
-  inline public function new (tp:Tuple<T, U>) {
+  inline function new (tp: Tuple<T, U>) {
     this = tp;
   }
 
-  /**
-      Static constructor.
-  **/
-  public static function mk<T, U> (e1:T, e2:U): Tp<T, U> {
+  /// Static constructor.
+  public static function mk<T, U> (e1: T, e2:U): Tp<T, U> {
     return new Tp({e1: e1, e2: e2});
   }
 
@@ -32,12 +28,12 @@ abstract Tp<T, U> (Tuple<T, U>) {
   }
 
   @:op(A == B)
-  public static function equals<T, U> (tp1:Tp<T, U>, tp2:Tp<T, U>):Bool {
+  public static function equals<T, U> (tp1: Tp<T, U>, tp2: Tp<T, U>): Bool {
     return tp1.e1 == tp2.e1 && tp1.e2 == tp2.e2;
   }
 
   @:op(A != B)
-  public static function nequals<T, U> (tp1:Tp<T, U>, tp2:Tp<T, U>):Bool {
+  public static function nequals<T, U> (tp1: Tp<T, U>, tp2: Tp<T, U>): Bool {
       return !(tp1 == tp2);
   }
 

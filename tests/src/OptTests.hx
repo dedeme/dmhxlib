@@ -1,8 +1,8 @@
 // Copyright 10-Aug-2019 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-import dmhx.Test;
-import dmhx.Opt;
+import dm.Test;
+import dm.Opt;
 
 class OptTests {
   public static function run() {

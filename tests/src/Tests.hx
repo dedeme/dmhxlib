@@ -2,7 +2,7 @@
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
 class Tests {
-  static public function main():Void {
+  static public function main (): Void {
     ExcTests.run();
     B64Tests.run();
     CrypTests.run();
@@ -12,5 +12,8 @@ class Tests {
     DecTests.run();
     DtTests.run();
     PathTests.run();
+    RndTests.run();
+    StoreTests.run();
+    StrTests.run();
   }
 }

@@ -1,18 +1,16 @@
-// Copyright 10-Aug-2019 ºDeme
+// Copyright 15-Jun-2020 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-package dmhx;
+package dm;
 
 import haxe.io.Bytes;
 
 class Cryp {
 
-  /**
-    Generates a B64 random key of a length 'lg'
-      lg    : Key length
-      return: Random key
-  **/
-  public static function genK (lg:Int): String {
+  /// Generates a B64 random key of a length 'lg'
+  ///   lg    : Key length
+  ///   return: Random key
+  public static function genK (lg: Int): String {
     var bs = Bytes.alloc(lg);
     for (i in 0...lg) {
       bs.set(i, Std.random(256));
@@ -20,13 +18,11 @@ class Cryp {
     return B64.encodeBytes(bs).substring(0, lg);
   }
 
-  /**
-      Returns 'k' codified in irreversible way, using 'lg' B64 digits.
-        key   : String to codify
-        lg    : Length of result
-        return: 'lg' B64 digits
-  **/
-  public static function key (key:String, lg:Int): String {
+  /// Returns 'k' codified in irreversible way, using 'lg' B64 digits.
+  ///   key   : String to codify
+  ///   lg    : Length of result
+  ///   return: 'lg' B64 digits
+  public static function key (key: String, lg: Int): String {
     var k = B64.decodeBytes(B64.encode(
       key + "codified in irreversibleDeme is good, very good!\n\r8@@"
     ));
@@ -66,13 +62,11 @@ class Cryp {
     return B64.encodeBytes(r).substring(0, lg);
   }
 
-  /**
-      Encodes 'm' with key 'k'.
-        key   : Key for encoding
-        msg   : Message to encode
-        return: 'm' codified in B64 digits.
-  **/
-  public static function cryp (key:String, msg:String): String {
+  /// Encodes 'm' with key 'k'.
+  ///   key   : Key for encoding
+  ///   msg   : Message to encode
+  ///   return: 'm' codified in B64 digits.
+  public static function cryp (key: String, msg: String): String {
     final m = B64.encode(msg);
     final lg = m.length;
     final k = Cryp.key(key, lg);
@@ -83,13 +77,11 @@ class Cryp {
     return B64.encodeBytes(r);
   }
 
-  /**
-      Decodes 'c' using key 'k'. 'c' was codified with cryp().
-        key   : Key for decoding
-        c     : Text codified with cryp()
-        return: 'c' decoded.
-  **/
-  public static function decryp (key:String, c:String): String {
+  /// Decodes 'c' using key 'k'. 'c' was codified with cryp().
+  ///   key   : Key for decoding
+  ///   c     : Text codified with cryp()
+  ///   return: 'c' decoded.
+  public static function decryp (key: String, c: String): String {
     final bs = B64.decodeBytes(c);
     final lg = bs.length;
     final k = Cryp.key(key, lg);

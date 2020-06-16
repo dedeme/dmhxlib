@@ -1,8 +1,8 @@
 // Copyright 14-Aug-2019 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-import dmhx.Test;
-import dmhx.Path;
+import dm.Test;
+import dm.Path;
 
 class PathTests {
   public static function run() {
@@ -42,6 +42,8 @@ class PathTests {
     t.eq(Path.cat([p1]), "1");
     t.eq(Path.cat([p1, "ab", "ab", "cd"]), "1/ab/ab/cd");
     t.eq(Path.cat(["/a", "b"]), "/a/b");
+
+    t.eq(Path.normalize("/usr//local/..//lib"), "/usr/lib");
 
     t.log();
   }

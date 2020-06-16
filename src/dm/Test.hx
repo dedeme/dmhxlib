@@ -1,12 +1,12 @@
 // Copyright 09-Aug-2019 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-package dmhx;
+package dm;
 
 import haxe.PosInfos;
 
 /**
-    Tests utility
+    Tests utilities
 **/
 class Test {
 
@@ -15,27 +15,24 @@ class Test {
   var subName:String = "";
 
 
-  public function new (name:String) {
+  public function new (name: String) {
     this.name = name;
   }
 
-  function msg<T> (actual:T, expected:T, pos:PosInfos) {
+  function msg<T> (actual: T, expected: T, pos: PosInfos) {
     final m = '${pos.fileName}.${pos.methodName}:${pos.lineNumber}: ' +
       "Test fail in [" + name +
       (subName == "" ? "" : "; ") +
       subName + "]\n" +
       "  Actual  : " + actual + "\n  Expected: " + expected
     ;
-    #if js
     throw new js.lib.Error(m);
-    #end
-    throw m;
   }
 
   /**
       Marks a sub-test.
   **/
-  public function mark (subName:String) {
+  public function mark (subName: String) {
     this.subName = subName;
   }
 
@@ -44,17 +41,13 @@ class Test {
   **/
   public function log () {
     final m = "Test [" + name + "] summary:\n" + "  Passed: " + pass;
-    #if cpp
-    Sys.println(m);
-    #else
     js.html.Console.log(m);
-    #end
   }
 
   /**
       Tests if 'value' is true.
   **/
-  public function yes (value:Bool, ?pos:PosInfos) {
+  public function yes (value: Bool, ?pos: PosInfos) {
     if (value) ++pass;
     else msg(false, true, pos);
   }
@@ -62,7 +55,7 @@ class Test {
   /**
       Tests if 'value' is false.
   **/
-  public function not (value:Bool, ?pos:PosInfos) {
+  public function not (value: Bool, ?pos: PosInfos) {
     if (value) msg(true, false, pos);
     else ++pass;
   }
@@ -71,10 +64,10 @@ class Test {
       Tests if 'actual' is equals to 'expected'
   **/
   public function eq<T> (
-    actual:T,
-    expected:T,
-    ?feq:(e1:T, e2:T) -> Bool,
-    ?pos:PosInfos
+    actual: T,
+    expected: T,
+    ?feq: (e1: T, e2: T) -> Bool,
+    ?pos: PosInfos
   ) {
     var isEq = feq == null ? actual == expected : feq(actual, expected);
     if (isEq) ++pass;
@@ -85,10 +78,10 @@ class Test {
       Tests if 'actual' is not equals to 'expected'
   **/
   public function neq<T> (
-    actual:T,
-    expected:T,
-    ?feq:(e1:T, e2:T) -> Bool,
-    ?pos:PosInfos
+    actual: T,
+    expected: T,
+    ?feq: (e1: T, e2: T) -> Bool,
+    ?pos: PosInfos
   ) {
     var isEq = feq == null ? actual == expected : feq(actual, expected);
     if (isEq) msg(Std.string(expected), "!= " + expected, pos);

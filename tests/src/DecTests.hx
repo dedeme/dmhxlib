@@ -1,9 +1,9 @@
 // Copyright 14-Aug-2019 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-import dmhx.Test;
-import dmhx.Dec;
-import dmhx.Opt;
+import dm.Test;
+import dm.Dec;
+import dm.Opt;
 
 class DecTests {
 

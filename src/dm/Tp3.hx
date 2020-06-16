@@ -1,23 +1,19 @@
-// Copyright 09-Aug-2019 ºDeme
+// Copyright 15-Jun-2020 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-package dmhx;
+package dm;
 
-private typedef Tuple3<T, U, V> = { e1:T, e2:U, e3:V }
+private typedef Tuple3<T, U, V> = { e1: T, e2:U, e3:V }
 
-/**
-    Tuple of three elements.
-**/
+/// Tuple of three elements.
 abstract Tp3<T, U, V> (Tuple3<T, U, V>) {
 
-  inline public function new (tp:Tuple3<T, U, V>) {
+  inline function new (tp: Tuple3<T, U, V>) {
     this = tp;
   }
 
-  /**
-      Static constructor.
-  **/
-  public static function mk<T, U, V> (e1:T, e2:U, e3:V): Tp3<T, U, V> {
+  /// Static constructor.
+  public static function mk<T, U, V> (e1: T, e2:U, e3:V): Tp3<T, U, V> {
     return new Tp3({e1: e1, e2: e2, e3: e3});
   }
 
@@ -38,15 +34,15 @@ abstract Tp3<T, U, V> (Tuple3<T, U, V>) {
 
   @:op(A == B)
   public static function equals<T, U, V> (
-    tp1:Tp3<T, U, V>, tp2: Tp3<T, U, V>
+    tp1: Tp3<T, U, V>, tp2: Tp3<T, U, V>
   ): Bool {
     return tp1.e1 == tp2.e1 && tp1.e2 == tp2.e2 && tp1.e3 == tp2.e3;
   }
 
   @:op(A != B)
   public static function nequals<T, U, V> (
-    tp1:Tp3<T, U, V>, tp2: Tp3<T, U, V>
-  ):Bool {
+    tp1: Tp3<T, U, V>, tp2: Tp3<T, U, V>
+  ): Bool {
       return !(tp1 == tp2);
   }
 

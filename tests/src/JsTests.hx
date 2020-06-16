@@ -1,9 +1,9 @@
 // Copyright 13-Aug-2019 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-import dmhx.Test;
-import dmhx.Js;
-import dmhx.Opt;
+import dm.Test;
+import dm.Js;
+import dm.Opt;
 import haxe.ds.Option;
 
 class Tst {
@@ -46,15 +46,15 @@ class JsTests {
 
     //trace(Js.wi(4).rb());
 
-    t.eq(Js.from(Js.wb(true).to()).rb(), true);
+    t.eq(Js.from(Js.wb(true).to()), true);
     t.eq(Js.wb(true).to(), "true");
     t.eq(Js.from(Js.wb(false).to()).rb(), false);
     t.eq(Js.wb(false).to(), "false");
-    t.eq(Js.from(Js.wi(12).to()).ri(), 12);
+    t.eq(Js.from(Js.wi(12).to()), 12);
     t.eq(Js.wi(12).to(), "12");
-    t.eq(Js.from(Js.wf(12.34).to()).rf(), 12.34);
+    t.eq(Js.from(Js.wf(12.34).to()), 12.34);
     t.eq(Js.wf(12.34).to(), "12.34");
-    t.eq(Js.from(Js.ws("\"Cañón\"").to()).rs(), "\"Cañón\"");
+    t.eq(Js.from(Js.ws("\"Cañón\"").to()), "\"Cañón\"");
     t.eq(Js.ws("\"Cañón\"").to(), "\"\\\"Cañón\\\"\"");
     var a = Js.from(Js.wa([true, 3]).to()).ra();
     t.eq(a[0].rb(), true);

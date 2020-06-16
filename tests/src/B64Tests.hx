@@ -1,8 +1,8 @@
 // Copyright 09-Aug-2019 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-import dmhx.Test;
-import dmhx.B64;
+import dm.Test;
+import dm.B64;
 import haxe.io.UInt8Array;
 
 class B64Tests {
