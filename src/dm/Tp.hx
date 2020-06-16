@@ -3,29 +3,17 @@
 
 package dm;
 
-private typedef Tuple<T, U> = { e1: T, e2:U }
-
 /// Tuple of two elements.
-abstract Tp<T, U> (Tuple<T, U>) {
+class Tp<T, U> {
 
-  inline function new (tp: Tuple<T, U>) {
-    this = tp;
+  public function new (e1: T, e2: U) {
+    this.e1 = e1;
+    this.e2 = e2;
   }
 
-  /// Static constructor.
-  public static function mk<T, U> (e1: T, e2:U): Tp<T, U> {
-    return new Tp({e1: e1, e2: e2});
-  }
+  public var e1(default, null): T;
 
-  public var e1(get, never): T;
-  public function get_e1 (): T {
-    return this.e1;
-  }
-
-  public var e2(get, never): U;
-  public function get_e2 (): U {
-    return this.e2;
-  }
+  public var e2(default, null): U;
 
   @:op(A == B)
   public static function equals<T, U> (tp1: Tp<T, U>, tp2: Tp<T, U>): Bool {

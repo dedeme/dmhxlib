@@ -127,22 +127,22 @@ class Str {
   }
 
   /// Javascript encodeURIComponent
-  inline public static function encodeURIComponent (s: String): String {
+  public static function encodeURIComponent (s: String): String {
     return untyped js.Syntax.code("encodeURIComponent(s)");
   }
 
   /// Javascript decodeURIComponent
-  inline public static function decodeURIComponent (url: String): String {
+  public static function decodeURIComponent (url: String): String {
     return untyped js.Syntax.code("decodeURIComponent(url)");
   }
 
   /// Javascript encodeURI
-  inline public static function encodeURI (s: String): String {
+  public static function encodeURI (s: String): String {
     return untyped js.Syntax.code("encodeURI(s)");
   }
 
   /// Javascript decodeURI
-  inline public static function decodeURI (url: String): String {
+  public static function decodeURI (url: String): String {
     return untyped js.Syntax.code("decodeURI(url)");
   }
 

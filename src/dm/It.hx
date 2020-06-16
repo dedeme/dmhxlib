@@ -53,7 +53,7 @@ class It<T> {
       () -> kvs.hasNext(),
       () -> {
         final kv = kvs.next();
-        Tp.mk(kv.key, kv.value);
+        new Tp(kv.key, kv.value);
       }
     );
   }
@@ -139,7 +139,7 @@ class It<T> {
   public static function zip<T, U> (it1: It<T>, it2: It<U>): It<Tp<T, U>> {
     return new It(
       () -> it1.hasNext() && it2.hasNext(),
-      () -> Tp.mk(it1.next(), it2.next())
+      () -> new Tp(it1.next(), it2.next())
     );
   }
 
@@ -151,7 +151,7 @@ class It<T> {
   ): It<Tp3<T, U, Z>> {
     return new It(
       () -> it1.hasNext() && it2.hasNext() && it3.hasNext(),
-      () -> Tp3.mk(it1.next(), it2.next(), it3.next())
+      () -> new Tp3(it1.next(), it2.next(), it3.next())
     );
   }
 
@@ -644,7 +644,7 @@ class It<T> {
       a1.push(tp.e1);
       a2.push(tp.e2);
     }
-    return Tp.mk(It.from(a1), It.from(a2));
+    return new Tp(It.from(a1), It.from(a2));
   }
 
   /// Returns a tuple of It over the corresponding first, second and thirt
@@ -661,7 +661,7 @@ class It<T> {
       a2.push(tp3.e2);
       a3.push(tp3.e3);
     }
-    return Tp3.mk(It.from(a1), It.from(a2), It.from(a3));
+    return new Tp3(It.from(a1), It.from(a2), It.from(a3));
   }
 
 }

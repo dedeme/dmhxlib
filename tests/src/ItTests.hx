@@ -249,27 +249,27 @@ class ItTests {
     t.yes(It.zip(It.from([]), It.from([2])).eq(It.empty()));
     var tpa = It.zip(It.from(["a"]), It.from([2])).to();
     t.eq(tpa.length, 1);
-    t.eq(tpa[0], Tp.mk("a", 2), Tp.equals);
+    t.eq(tpa[0], new Tp("a", 2), Tp.equals);
     tpa = It.zip(It.from(["a", "b"]), It.from([2])).to();
     t.eq(tpa.length, 1);
-    t.eq(tpa[0], Tp.mk("a", 2), Tp.equals);
+    t.eq(tpa[0], new Tp("a", 2), Tp.equals);
     tpa = It.zip(It.from(["a"]), It.from([2, 6])).to();
     t.eq(tpa.length, 1);
-    t.eq(tpa[0], Tp.mk("a", 2), Tp.equals);
+    t.eq(tpa[0], new Tp("a", 2), Tp.equals);
 
     t.yes(It.zip3(It.from([]), It.from([2]), It.from([3, 4])).eq(It.empty()));
     var tpa3 = It.zip3(It.from(["a"]), It.from([2]), It.from([3])).to();
     t.eq(tpa3.length, 1);
-    t.eq(tpa3[0], Tp3.mk("a", 2, 3), Tp3.equals);
+    t.eq(tpa3[0], new Tp3("a", 2, 3), Tp3.equals);
     tpa3 = It.zip3(It.from(["a", "b", "c"]), It.from([2]), It.from([3])).to();
     t.eq(tpa3.length, 1);
-    t.eq(tpa3[0], Tp3.mk("a", 2, 3), Tp3.equals);
+    t.eq(tpa3[0], new Tp3("a", 2, 3), Tp3.equals);
     tpa3 = It.zip3(It.from(["a"]), It.from([2, 7]), It.from([3])).to();
     t.eq(tpa3.length, 1);
-    t.eq(tpa3[0], Tp3.mk("a", 2, 3), Tp3.equals);
+    t.eq(tpa3[0], new Tp3("a", 2, 3), Tp3.equals);
     tpa3 = It.zip3(It.from(["a"]), It.from([2]), It.from([3, 20, 12])).to();
     t.eq(tpa3.length, 1);
-    t.eq(tpa3[0], Tp3.mk("a", 2, 3), Tp3.equals);
+    t.eq(tpa3[0], new Tp3("a", 2, 3), Tp3.equals);
 
     final m1 = ["a" => 1, "b" => 2];
     final m2 = Opt.get(It.fromMap(m1).toMap());

@@ -44,7 +44,7 @@ class RndTests {
     v = box.next();
     t.yes(v == "a" || v == "b" || v == "c");
 
-    box = Rnd.mkBox([Tp.mk("a", 2), Tp.mk("b", 1)]);
+    box = Rnd.mkBox([new Tp("a", 2), new Tp("b", 1)]);
     v = box.next();
     t.yes(v == "a" || v == "b");
     v = box.next();
@@ -60,7 +60,7 @@ class RndTests {
     v = box.next();
     t.yes(v == "a" || v == "b");
 
-    //box = Rnd.mkBox([Tp.mk("a", 2), Tp.mk("b", 1)]);
+    //box = Rnd.mkBox([new Tp("a", 2), new Tp("b", 1)]);
     //var r = It.range(6).reduce("", (r, e) -> r + box.next());
     //trace(r);
 

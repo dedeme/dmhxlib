@@ -1,4 +1,4 @@
-// Copyright 09-Aug-2019 ºDeme
+// Copyright 16-Jun-2020 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
 class Tests {

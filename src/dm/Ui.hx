@@ -98,19 +98,19 @@ class Ui {
       return new Map();
     }
     return It.from(search.substring(1).split("&")).reduce(
-      new Tp(new Map(), 0),
+      Tp.mk(new Map(), 0),
       function (s, e) {
         final ix = e.indexOf("=");
         if (ix == -1) {
-          s._1.set(Std.string(s._2), StringTools.urlDecode(e));
+          s.e1.set(Std.string(s.e2), StringTools.urlDecode(e));
         } else {
-          s._1.set(
+          s.e1.set(
             StringTools.urlDecode(e.substring(0, ix)),
             StringTools.urlDecode(e.substring(ix + 1)));
         }
-        return new Tp(s._1, s._2 + 1);
+        return Tp.mk(s.e1, s.e2 + 1);
       }
-    )._1;
+    ).e1;
   }
 
   static final scripts = new Map<String, Domo>();
@@ -165,8 +165,8 @@ class Ui {
   ///           and name server (e.g. http://server.com/dir/file.txt, must be
   ///           written "/dir/file.txt"), or relative to page.
   ///   action: Callback which receives the text.
-  public static function upload (path: String, action: String -> Void) {
-    final url = path.charAt(0) === "/"
+  public static function upload (path: String, action: String -> Void): Void {
+    final url = path.charAt(0) == "/"
       ? "http://" + js.Browser.location.host + path
       : path;
     final request = new js.html.XMLHttpRequest();
@@ -239,7 +239,7 @@ class Ui {
   ///          '.png' will be used.
   ///          It must be placed in a directory named 'img'.
   public static function img (name: String): Domo {
-    if (name.indexOf(".") === -1) name = name + ".png";
+    if (name.indexOf(".") == -1) name = name + ".png";
     return Q("img").att("src", "img/" + name);
   }
 
@@ -278,7 +278,7 @@ class Ui {
 
   /// Create a link to a function.
   ///  f : Function to execute.
-  public static function link (f:Dynamic -> Void):Domo {
+  public static function link (f:Dynamic -> Void): Domo {
     return Q("span").att("style", "cursor:pointer").on(CLICK, f);
   }
 
@@ -310,13 +310,13 @@ class Ui {
   }
 
   /// Emits a beep.
-  public static function beep () {
-    const au = new js.html.audio.AudioContext();
-    const o = au.createOscillator();
+  public static function beep (): Void {
+    final au = new js.html.audio.AudioContext();
+    final o = au.createOscillator();
     o.frequency.value = 990;
     o.connect(au.destination);
     o.start(0);
-    haxe.Timer.delay(() => o.stop(0), 80).run();
+    haxe.Timer.delay(() -> o.stop(0), 80).run();
   }
 
   /// Shows a image to scroll to top.
@@ -324,7 +324,7 @@ class Ui {
   ///        used. It must be placed in a directory named 'img'.
   public static function upTop (image: String): Domo {
     return Q("div").style("position: fixed;bottom: 0px;right: 20px")
-      .add(link(() => js.Browser.window.scroll(0, 0))
+      .add(link(e -> js.Browser.window.scroll(0, 0))
         .add(img(image)));
   }
 
@@ -349,8 +349,8 @@ class Ui {
 
   /// Returns y position of mouse in browser window.
   public static function mouseY (ev: js.html.MouseEvent): Int {
-    return js.Brower.document.documentElement.scrollTop +
-      js.Brower.document.body.scrollTop +
+    return js.Browser.document.documentElement.scrollTop +
+      js.Browser.document.body.scrollTop +
       ev.clientY
     ;
   }
