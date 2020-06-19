@@ -62,10 +62,13 @@ abstract Js (Dynamic) {
 
   @:from
   public static function wo (o:Map<String, Js>): Js {
-    final r = new Array<Js>();
+    final fn1: () ->  Dynamic = () -> return untyped js.Syntax.code("{}");
+    final fn2: Dynamic -> String -> Js -> Void = (o, k, v) ->
+      untyped js.Syntax.code("o[k]=v");
+
+    var r = fn1();
     for (k => v in o) {
-      r.push(k);
-      r.push(v);
+      fn2(r, k , v);
     }
     return new Js(r);
   }
@@ -133,18 +136,19 @@ abstract Js (Dynamic) {
   }
 
   @:to
-  public static function ro (js: Js): Map<String, Js> {
+  public static function ro (jsv: Js): Map<String, Js> {
     try {
-      final a:Array<Js> = cast(js);
+      final fn1: Dynamic -> Array<String> = o ->
+        return untyped js.Syntax.code("Object.keys(o)");
+      final fn2: Dynamic -> String -> Js = (o, k) ->
+        return untyped js.Syntax.code("o[k]");
+
+      final obj:Dynamic = cast(jsv);
       final r = new Map<String, Js>();
-      var i = 0;
-      while (i < a.length) {
-        r.set(cast(a[i], String), a[i + 1]);
-        i += 2;
-      }
+      for (k in fn1(obj)) r.set(k, fn2(obj, k));
       return r;
     } catch (e: String) {
-      throw Exc.illegalArgument("js", "Map<String, Js>", getType(js));
+      throw Exc.illegalArgument("jsv", "Map<String, Js>", getType(jsv));
     }
   }
 

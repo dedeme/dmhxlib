@@ -4,6 +4,7 @@
 import dm.Test;
 import dm.Dt;
 import dm.Store;
+import dm.Opt;
 
 class StoreTests {
   public static function run () {
@@ -15,10 +16,10 @@ class StoreTests {
     Store.put("StoreTests_k1", "StoreTests_one");
     Store.put("StoreTests_k2", "StoreTests_");
     Store.put("StoreTests_", "StoreTests_none");
-    t.eq(Store.get("StoreTests_k1"), "StoreTests_one");
-    t.eq(Store.get("StoreTests_k2"), "StoreTests_");
-    t.eq(Store.get("StoreTests_"), "StoreTests_none");
-    t.eq(Store.get("StoreTests_xx"), null);
+    t.eq(Opt.get(Store.get("StoreTests_k1")), "StoreTests_one");
+    t.eq(Opt.get(Store.get("StoreTests_k2")), "StoreTests_");
+    t.eq(Opt.get(Store.get("StoreTests_")), "StoreTests_none");
+    t.eq(Opt.get(Store.get("StoreTests_xx")), null);
 
     t.eq(Store.size(), 5);
     t.yes(Store.keys().contains("StoreTests_k2"));
@@ -26,9 +27,9 @@ class StoreTests {
     t.yes(Store.keys().contains("StoreTests_"));
     t.yes(Store.keys().count() == 5);
 
-    t.yes(Store.values().contains("StoreTests_none"));
-    t.yes(Store.values().contains("StoreTests_one"));
-    t.yes(Store.values().contains("StoreTests_"));
+    t.yes(Store.values().map(v -> Opt.get(v)).contains("StoreTests_none"));
+    t.yes(Store.values().map(v -> Opt.get(v)).contains("StoreTests_one"));
+    t.yes(Store.values().map(v -> Opt.get(v)).contains("StoreTests_"));
     t.yes(Store.values().count() == 5);
 
     Store.del("StoreTests_");

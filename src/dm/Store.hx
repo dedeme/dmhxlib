@@ -3,6 +3,7 @@
 
 package dm;
 
+import haxe.ds.Option;
 import dm.It;
 import dm.Dt;
 
@@ -29,15 +30,19 @@ class Store {
     name: String, keys: Array<String>, time: Float
   ): Void {
     final dt: Float = Date.now().getTime();
-    final ks: String = get(name);
-    if (ks == null || dt > Std.parseFloat(ks))
-      It.from(keys).each(k -> del(k));
+    switch (get(name)) {
+      case Some(ks):
+        if (dt > Std.parseFloat(ks)) It.from(keys).each(k -> del(k));
+      case None:
+        It.from(keys).each(k -> del(k));
+    }
     put(name, Std.string (dt + time * 3600000.));
   }
 
   /// Returns the value of key [key] or <b>null</b> if it does not exists.
-  public static function get (key: String): Null<String> {
-    return untyped js.Syntax.code("localStorage.getItem(key)");
+  public static function get (key: String): Option<String> {
+    final r = untyped js.Syntax.code("localStorage.getItem(key)");
+    return r == null ? None : Some(r);
   }
 
   /// Returns the key in position [ix].
@@ -66,7 +71,7 @@ class Store {
   }
 
   /// Returns a It with all values
-  public static function values (): It<String> {
+  public static function values (): It<Option<String>> {
     return keys().map(e -> get(e));
   }
 

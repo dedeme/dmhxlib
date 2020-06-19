@@ -64,9 +64,9 @@ class JsTests {
     t.eq(o.get("a").rb(), true);
     t.eq(o.get("b").ri(), 3);
     var r = Js.wo(["a" => true, "b" => 3]).to();
-    t.eq(r, StringTools.startsWith(r, "[\"a")
-      ? "[\"a\",true,\"b\",3]"
-      : "[\"b\",3,\"a\",true]"
+    t.eq(r, StringTools.startsWith(r, "{\"a")
+      ? "{\"a\":true,\"b\":3}"
+      : "{\"b\":3,\"a\":true}"
     );
 
     var tst = new Tst("a", 2);

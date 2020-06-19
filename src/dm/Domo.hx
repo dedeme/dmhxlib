@@ -139,7 +139,9 @@ class Domo {
     return this;
   }
 
-  ///
+  /// Adds an EventListener.
+  /// To replace it use obj.e.onXXX = Event. For example:
+  ///   td.e.onclick = e -> Ui.alert("Here");
   public function on (type: ActionType, action: Dynamic -> Void): Domo {
     var act = switch type {
       case BLUR: "blur";

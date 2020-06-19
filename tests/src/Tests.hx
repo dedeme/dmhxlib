@@ -1,6 +1,8 @@
 // Copyright 16-Jun-2020 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
+import dm.Client;
+
 class Tests {
   static public function main (): Void {
     ExcTests.run();
