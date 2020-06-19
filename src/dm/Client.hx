@@ -74,7 +74,7 @@ class Client {
           }
           throw(e);
         } catch (e2) {
-          trace("RAW SERVER RESPONSE:\n${rp}\nCLIENT ERROR:\n${e}");
+          trace('RAW SERVER RESPONSE:\n${rp}\nCLIENT ERROR:\n${e}');
         }
       }
     }
@@ -113,7 +113,7 @@ class Client {
         connectionKey = data.get("conKey").rs();
         fn(true);
       } catch (e) {
-        trace("RAW SERVER RESPONSE:\n${rp}\nCLIENT ERROR:\n${e}");
+        trace('RAW SERVER RESPONSE:\n${rp}\nCLIENT ERROR:\n${e}');
       }
     }
     sendServer(sessionId(), fn2);
@@ -145,14 +145,14 @@ class Client {
         connectionKey = data.get("conKey").rs();
         fn(true);
       } catch (e) {
-        trace("RAW SERVER RESPONSE:\n${rp}\nCLIENT ERROR:\n${e}");
+        trace('RAW SERVER RESPONSE:\n${rp}\nCLIENT ERROR:\n${e}');
       }
     }
 
     final key = Cryp.key(appName, klen);
     final p = Client.crypPass(pass);
     final exp = withExpiration ? "1" : "0";
-    sendServer(":" + Cryp.cryp(key, "${user}:${p}:${exp}"), fn2);
+    sendServer(":" + Cryp.cryp(key, '${user}:${p}:${exp}'), fn2);
   }
 
   /// Sends normal data to server.
