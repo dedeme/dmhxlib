@@ -22,9 +22,9 @@ class Tst {
   }
   public static function toJs (t:Tst): Js {
     return Js.wa([
-      t.s,
-      t.i,
-      t.i2
+      Js.ws(t.s),
+      Js.wi(t.i),
+      Js.wi(t.i2)
     ]);
   }
   public static function fromJs (js:Js): Tst {
@@ -46,24 +46,24 @@ class JsTests {
 
     //trace(Js.wi(4).rb());
 
-    t.eq(Js.from(Js.wb(true).to()), true);
+    t.eq(Js.from(Js.wb(true).to()).rb(), true);
     t.eq(Js.wb(true).to(), "true");
     t.eq(Js.from(Js.wb(false).to()).rb(), false);
     t.eq(Js.wb(false).to(), "false");
-    t.eq(Js.from(Js.wi(12).to()), 12);
+    t.eq(Js.from(Js.wi(12).to()).ri(), 12);
     t.eq(Js.wi(12).to(), "12");
-    t.eq(Js.from(Js.wf(12.34).to()), 12.34);
+    t.eq(Js.from(Js.wf(12.34).to()).rf(), 12.34);
     t.eq(Js.wf(12.34).to(), "12.34");
-    t.eq(Js.from(Js.ws("\"Cañón\"").to()), "\"Cañón\"");
+    t.eq(Js.from(Js.ws("\"Cañón\"").to()).rs(), "\"Cañón\"");
     t.eq(Js.ws("\"Cañón\"").to(), "\"\\\"Cañón\\\"\"");
-    var a = Js.from(Js.wa([true, 3]).to()).ra();
+    var a = Js.wa([Js.wb(true), Js.wi(3)]).ra();
     t.eq(a[0].rb(), true);
     t.eq(a[1].ri(), 3);
-    t.eq(Js.wa([true, 3]).to(), "[true,3]");
-    var o = Js.from(Js.wo(["a" => true, "b" => 3]).to()).ro();
+    t.eq(Js.wa([Js.wb(true), Js.wi(3)]).to(), "[true,3]");
+    var o = Js.from(Js.wo(["a" => Js.wb(true), "b" => Js.wi(3)]).to()).ro();
     t.eq(o.get("a").rb(), true);
     t.eq(o.get("b").ri(), 3);
-    var r = Js.wo(["a" => true, "b" => 3]).to();
+    var r = Js.wo(["a" => Js.wb(true), "b" => Js.wi(3)]).to();
     t.eq(r, StringTools.startsWith(r, "{\"a")
       ? "{\"a\":true,\"b\":3}"
       : "{\"b\":3,\"a\":true}"
@@ -80,9 +80,7 @@ class JsTests {
     tstb.setI2(44);
 
     //trace(Js.wArray([tst, tstb], Tst.toJs).to());
-    var a2 = Js.rArray(
-      Js.from(Js.wArray([tst, tstb], Tst.toJs).to()), Tst.fromJs
-    );
+    var a2 = Js.from(Js.wArray([tst, tstb], Tst.toJs).to()).rArray(Tst.fromJs);
     tst2 = a2[0];
     var tstb2 = a2[1];
     t.eq(tst.s, tst2.s);

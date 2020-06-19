@@ -5,16 +5,19 @@ package dm;
 
 import haxe.Json;
 import haxe.ds.Option;
+import js.Syntax;
 
 /// Json utilities
-abstract Js (Dynamic) {
+class Js {
 
-  static function getType (e: Dynamic): String {
-    return Std.string(Type.typeof(e));
-  }
+  var js: Dynamic;
 
   function new (js: Dynamic) {
-    this = js;
+    this.js = js;
+  }
+
+  function getType (): String {
+    return Std.string(Type.typeof(js));
   }
 
   /**
@@ -32,43 +35,39 @@ abstract Js (Dynamic) {
       Returns Json.stringify(this).
   **/
   public function to (): String {
-    return Json.stringify(this);
+    return Json.stringify(this.js);
   }
 
-  @:from
   public static function wb (b: Bool): Js {
     return new Js(b);
   }
 
-  @:from
   public static function wi (i: Int): Js {
     return new Js(i);
   }
 
-  @:from
   public static function wf (f: Float): Js {
     return new Js(f);
   }
 
-  @:from
   public static function ws (s: String): Js {
     return new Js(s);
   }
 
-  @:from
   public static function wa (a:Array<Js>): Js {
-    return new Js(a);
+    final jsa = [];
+    for (e in a) jsa.push(e.js);
+    return new Js(jsa);
   }
 
-  @:from
   public static function wo (o:Map<String, Js>): Js {
-    final fn1: () ->  Dynamic = () -> return untyped js.Syntax.code("{}");
+    final fn1: () ->  Dynamic = () -> return untyped Syntax.code("{}");
     final fn2: Dynamic -> String -> Js -> Void = (o, k, v) ->
-      untyped js.Syntax.code("o[k]=v");
+      untyped Syntax.code("o[k]=v");
 
     var r = fn1();
     for (k => v in o) {
-      fn2(r, k , v);
+      fn2(r, k , v.js);
     }
     return new Js(r);
   }
@@ -90,65 +89,61 @@ abstract Js (Dynamic) {
     return wo(r);
   }
 
-  @:to
-  public static function rb (js: Js): Bool {
+  public function rb (): Bool {
     try {
       return cast(js, Bool);
     } catch (e: String) {
-      throw Exc.illegalArgument("js", "Bool", getType(js));
+      throw Exc.illegalArgument("js", "Bool", getType());
     }
   }
 
-  @:to
-  public static function ri (js: Js): Int {
+  public function ri (): Int {
     try {
       return cast(js, Int);
     } catch (e: String) {
-      throw Exc.illegalArgument("js", "Int", getType(js));
+      throw Exc.illegalArgument("js", "Int", getType());
     }
   }
 
-  @:to
-  public static function rf (js: Js): Float {
+  public function rf (): Float {
     try {
       return cast(js, Float);
     } catch (e: String) {
-      throw Exc.illegalArgument("js", "Float", getType(js));
+      throw Exc.illegalArgument("js", "Float", getType());
     }
   }
 
-  @:to
-  public static function rs (js: Js): String {
+  public function rs (): String {
     try {
       return cast(js, String);
     } catch (e: String) {
-      throw Exc.illegalArgument("js", "String", getType(js));
+      throw Exc.illegalArgument("js", "String", getType());
     }
   }
 
-  @:to
-  public static function ra (js: Js): Array<Js> {
+  public function ra (): Array<Js> {
     try {
-      return cast(js);
+      final a = [];
+      for (e in cast(js, Array<Dynamic>)) a.push(new Js(e));
+      return a;
     } catch (e: String) {
-      throw Exc.illegalArgument("js", "Array<Js>", getType(js));
+      throw Exc.illegalArgument("js", "Array<Js>", getType());
     }
   }
 
-  @:to
-  public static function ro (jsv: Js): Map<String, Js> {
+  public function ro (): Map<String, Js> {
     try {
       final fn1: Dynamic -> Array<String> = o ->
-        return untyped js.Syntax.code("Object.keys(o)");
-      final fn2: Dynamic -> String -> Js = (o, k) ->
-        return untyped js.Syntax.code("o[k]");
+        return untyped Syntax.code("Object.keys(o)");
+      final fn2: Dynamic -> String -> Dynamic = (o, k) ->
+        return untyped Syntax.code("o[k]");
 
-      final obj:Dynamic = cast(jsv);
+      final obj:Dynamic = cast(js);
       final r = new Map<String, Js>();
-      for (k in fn1(obj)) r.set(k, fn2(obj, k));
+      for (k in fn1(obj)) r.set(k, new Js(fn2(obj, k)));
       return r;
     } catch (e: String) {
-      throw Exc.illegalArgument("jsv", "Map<String, Js>", getType(jsv));
+      throw Exc.illegalArgument("js", "Map<String, Js>", getType());
     }
   }
 
@@ -156,8 +151,8 @@ abstract Js (Dynamic) {
       Read an array whose elements can be deserialized with 'ffrom'.<p>
       If it fails, returns None.
   **/
-  public static function rArray<T> (js:Js, ffrom: Js -> T): Array<T> {
-    return js.ra().map(ffrom);
+  public function rArray<T> (ffrom: Js -> T): Array<T> {
+    return ra().map(ffrom);
   }
 
   /**

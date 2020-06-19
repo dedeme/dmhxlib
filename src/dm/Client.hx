@@ -200,7 +200,7 @@ class Client {
       }
     }
 
-    rq.set("longRunFile", "");
+    rq.set("longRunFile", Js.ws(""));
     send(rq, fn2);
   }
 
