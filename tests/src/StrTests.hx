@@ -57,7 +57,7 @@ class StrTests {
     t.eq(Str.cutRight ("abcd", 3), "...");
     t.eq(Str.cutRight ("abcd", 1), "...");
 
-    t.eq(Str.html ("a'bc<"), "a&#039;bc&lt;");
+    t.eq(Str.html ("a'bc<"), "a'bc&lt;");
 
     t.yes(!Str.isSpace (""));
     t.yes(Str.isSpace (" "));

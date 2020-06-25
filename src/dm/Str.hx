@@ -1,13 +1,12 @@
 // Copyright 15-Jun-2020 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
-/// Contains Str, StrBf
 package dm;
 
 import haxe.io.Bytes;
 import dm.Cryp;
 
-/// Static functions for string handling
+/// Static functions for string management.
 class Str {
   /// Cuts [text] left, returning [width] positions at right.
   public static function cutLeft (text: String, width: Int): String {
@@ -23,9 +22,9 @@ class Str {
     return text;
   }
 
-  /// Escapes single or double quotes too.
+  /// It does not escape single nor double quotes.
   inline public static function html (text: String): String {
-    return StringTools.htmlEscape (text, true);
+    return StringTools.htmlEscape (text, false);
   }
 
   /// Indicates if text[0] is a space. if text length is 0, returns false.

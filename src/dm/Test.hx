@@ -5,9 +5,7 @@ package dm;
 
 import haxe.PosInfos;
 
-/**
-    Tests utilities
-**/
+/// Tests utilities.
 class Test {
 
   final name:String;
@@ -29,40 +27,30 @@ class Test {
     throw new js.lib.Error(m);
   }
 
-  /**
-      Marks a sub-test.
-  **/
+  /// Marks a sub-test.
   public function mark (subName: String) {
     this.subName = subName;
   }
 
-  /**
-      Shows a message with the number of passed tests.
-  **/
+  /// Shows a message with the number of passed tests.
   public function log () {
     final m = "Test [" + name + "] summary:\n" + "  Passed: " + pass;
     js.html.Console.log(m);
   }
 
-  /**
-      Tests if 'value' is true.
-  **/
+  /// Tests if 'value' is true.
   public function yes (value: Bool, ?pos: PosInfos) {
     if (value) ++pass;
     else msg(false, true, pos);
   }
 
-  /**
-      Tests if 'value' is false.
-  **/
+  /// Tests if 'value' is false.
   public function not (value: Bool, ?pos: PosInfos) {
     if (value) msg(true, false, pos);
     else ++pass;
   }
 
-  /**
-      Tests if 'actual' is equals to 'expected'
-  **/
+  /// Tests if 'actual' is equals to 'expected'
   public function eq<T> (
     actual: T,
     expected: T,
@@ -74,9 +62,7 @@ class Test {
     else msg(actual, expected, pos);
   }
 
-  /**
-      Tests if 'actual' is not equals to 'expected'
-  **/
+  /// Tests if 'actual' is not equals to 'expected'
   public function neq<T> (
     actual: T,
     expected: T,

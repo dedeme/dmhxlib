@@ -1,9 +1,11 @@
 // Copyright 15-Jun-2020 ºDeme
 // GNU General Public License - V3 <http://www.gnu.org/licenses/>
 
+/// Class for envelopping DOM objects.
+
 package dm;
 
-///
+/// Constants to use with '.on()'
 enum ActionType {
   BLUR; CHANGE; CLICK; DBLCLICK; FOCUS; KEYDOWN; KEYPRESS; KEYUP;
   LOAD; MOUSEDOWN; MOUSEMOVE; MOUSEOUT; MOUSEOVER; MOUSEUP; MOUSEWHEEL;

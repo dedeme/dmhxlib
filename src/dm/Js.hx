@@ -38,6 +38,10 @@ class Js {
     return Json.stringify(this.js);
   }
 
+  public static function wn (): Js {
+    return new Js(null);
+  }
+
   public static function wb (b: Bool): Js {
     return new Js(b);
   }
@@ -87,6 +91,10 @@ class Js {
     for (k => v in m)
       r.set(k, fto(v));
     return wo(r);
+  }
+
+  public function isNull (): Bool {
+    return js == null;
   }
 
   public function rb (): Bool {

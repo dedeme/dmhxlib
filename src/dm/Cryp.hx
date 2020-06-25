@@ -5,9 +5,10 @@ package dm;
 
 import haxe.io.Bytes;
 
+/// Utilities for encryption.
 class Cryp {
 
-  /// Generates a B64 random key of a length 'lg'
+  /// Generates a B64 random key of a length 'lg'.
   ///   lg    : Key length
   ///   return: Random key
   public static function genK (lg: Int): String {

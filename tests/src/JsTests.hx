@@ -44,8 +44,8 @@ class JsTests {
   public static function run() {
     final t = new Test("Js");
 
-    //trace(Js.wi(4).rb());
 
+    t.yes(Js.from(Js.wn().to()).isNull());
     t.eq(Js.from(Js.wb(true).to()).rb(), true);
     t.eq(Js.wb(true).to(), "true");
     t.eq(Js.from(Js.wb(false).to()).rb(), false);

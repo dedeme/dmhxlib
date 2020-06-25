@@ -147,7 +147,7 @@ class Ui {
   ///   action : Action after loading
   public static function loads (
     paths: Array<String>, action: Void -> Void
-  ): Void{
+  ): Void {
     var lload: Void -> Void = null;
 
     lload = function () {
