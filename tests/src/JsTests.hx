@@ -90,9 +90,8 @@ class JsTests {
     t.eq(tstb.i, tstb2.i);
     t.eq(tstb.getI2(), tstb2.getI2());
 
-    var m = Js.rMap(
-      Js.from(Js.wMap(["a" => tst, "b" => tstb], Tst.toJs).to()), Tst.fromJs
-    );
+    var m = Js.from(Js.wMap(["a" => tst, "b" => tstb], Tst.toJs).to())
+      .rMap(Tst.fromJs);
     tst2 = m["a"];
     tstb2 = m["b"];
     t.eq(tst.s, tst2.s);

@@ -167,9 +167,9 @@ class Js {
       Read a Map whose values can be deserialized with 'ffrom'.<p>
       If it fails, returns None.
   **/
-  public static function rMap<T> (js:Js, ffrom: Js -> T): Map<String, T> {
+  public function rMap<T> (ffrom: Js -> T): Map<String, T> {
     final r = new Map<String, T>();
-    for (k => v in js.ro())
+    for (k => v in ro())
       r.set(k, ffrom(v));
     return r;
   }
