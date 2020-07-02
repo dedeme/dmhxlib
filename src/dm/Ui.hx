@@ -217,6 +217,7 @@ class Ui {
   ///   inp : An input of text type.
   public static function changePoint (inp: Domo): Domo {
     var el: js.html.InputElement = cast(inp.e);
+    final ac = el.onkeydown;
     el.onkeydown = function (e) {
       if (e.keyCode == 110) {
         var start = el.selectionStart;
@@ -229,6 +230,8 @@ class Ui {
 
         return false;
       }
+
+      if (ac != null) ac(e);
       return true;
     }
     return inp;
