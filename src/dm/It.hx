@@ -3,7 +3,7 @@
 
 package dm;
 
-import haxe.ds.Option;
+import dm.Opt;
 import haxe.ds.StringMap;
 
 /// Lazy iterator.

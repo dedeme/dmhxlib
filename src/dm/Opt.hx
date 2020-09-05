@@ -3,11 +3,14 @@
 
 package dm;
 
-import haxe.ds.Option;
+/// Container of a value which can be empty.
+enum Option<T> {
+  Some(v:T);
+  None;
+}
 
 /// Option utilities.
 class Opt {
-
   /// Returns 'o' value if 'o' is 'Some(value)'. Otherwise it returns null.
   public static function get<T> (o: Option<T>): Null<T> {
     switch (o){
@@ -24,21 +27,27 @@ class Opt {
     }
   }
 
-  /// Returns an Array with values of 'i' mapped to 'U', unless some 'fn(value)'
-  /// is None. Then it returns None.
-  public static function map<T, U> (
-    i: Iterable<T>, fn: T->Option<U>
-  ): Option<Array<U>> {
-    final it = i.iterator();
-    final r:Array<U> = [];
-    while (it.hasNext ()) {
-      final v = fn(it.next());
-      switch (v) {
-        case Some(e): r.push(e);
-        case None: return None;
-      }
+  /// Returns 'o' value if 'o' is 'Some(value)'. Otherwise throws an exception.
+  public static function eget<T> (o: Option<T>): T {
+    switch (o){
+      case Some(value): return value;
+      default: throw ("Option is None");
     }
-    return Some(r);
+  }
+
+  /// Returns fn(e)
+  public static function fmap<T, U> (e: T, fn: T -> Option<U>): Option<U> {
+    return fn(e);
+  }
+
+  /// Returns fn(vaule) if e is Some(value) or None if e is None.
+  public static function bind<T, U> (
+    e: Option<T>, fn: T -> Option<U>
+  ): Option<U> {
+    return switch e {
+      case Some(value): fn(value);
+      default: None;
+    }
   }
 
 }

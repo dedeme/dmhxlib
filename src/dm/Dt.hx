@@ -3,7 +3,7 @@
 
 package dm;
 
-import haxe.ds.Option;
+import dm.Opt;
 
 ///Utilities for managing dates-times.
 class Dt {

@@ -3,7 +3,7 @@
 
 package dm;
 
-import haxe.ds.Option;
+import dm.Opt;
 using StringTools;
 
 ///Utilities for managing float numbers.
