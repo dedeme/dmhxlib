@@ -61,10 +61,10 @@ class Client {
     isSecure: Bool, data: Map<String, Js>, fn: Map<String, Js> -> Void
   ): Void {
     final fn2 = rp -> {
+      var data: Map<String, Js>;
       try {
         final jdata = Cryp.decryp(key, rp);
-        final data = Js.from(jdata).ro();
-        fn(data);
+        data = Js.from(jdata).ro();
       } catch (e) {
         try {
           final jdata = Cryp.decryp("nosession", rp);
@@ -75,9 +75,10 @@ class Client {
           }
           throw(e);
         } catch (e2) {
-          trace('RAW SERVER RESPONSE:\n${rp}\nCLIENT ERROR:\n${e}');
+          throw('RAW SERVER RESPONSE:\n${rp}\nCLIENT ERROR:\n${e}');
         }
       }
+      fn(data);
     }
 
     final rq = isSecure
