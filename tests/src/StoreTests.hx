@@ -21,7 +21,7 @@ class StoreTests {
     t.eq(Opt.get(Store.get("StoreTests_")), "StoreTests_none");
     t.eq(Opt.get(Store.get("StoreTests_xx")), null);
 
-    t.eq(Store.size(), 5);
+    t.eq(Store.length(), 5);
     t.yes(Store.keys().contains("StoreTests_k2"));
     t.yes(Store.keys().contains("StoreTests_k1"));
     t.yes(Store.keys().contains("StoreTests_"));
@@ -34,16 +34,18 @@ class StoreTests {
 
     Store.del("StoreTests_");
     Store.del("StoreTests_xx");
-    t.yes(Store.size() == 4);
+    t.yes(Store.length() == 4);
 
     Store.expires("StoreTests_ex1", ["StoreTests_k1"], 0);
     Store.expires("StoreTests_ex2", ["StoreTests_k2"], 0);
-    t.eq(Store.size(), 3);
+    t.eq(Store.length(), 3);
 
     t.yes(!Store.keys().contains("StoreTests_k1"));
     t.yes(Store.keys().contains("StoreTests_k2"));
 
+    t.eq(Store.size(), 156);
     Store.clear("StoreTests_");
+    t.yes(Store.length() == 0);
     t.yes(Store.size() == 0);
 
     t.log();

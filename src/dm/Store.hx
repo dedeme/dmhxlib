@@ -52,7 +52,7 @@ class Store {
 
   /// Returns a It with all keys
   public static function keys (): It<String> {
-    final sz = size();
+    final sz = length();
     var c = 0;
     return new It (
       function () { return c < sz; }
@@ -65,9 +65,18 @@ class Store {
     untyped js.Syntax.code("localStorage.setItem(key, value)");
   }
 
-  /// Returns the number of elements
-  public static function size (): Int {
+  /// Returns the number of elements.
+  public static function length (): Int {
     return untyped js.Syntax.code("localStorage.length");
+  }
+
+  /// Returns the memory used in bytes.
+  public static function size (): Int {
+    var sum = 0;
+    keys().each(k ->
+      sum += (k.length + Opt.get(Store.get(k)).length) * 2
+    );
+    return sum;
   }
 
   /// Returns a It with all values
