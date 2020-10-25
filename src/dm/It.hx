@@ -86,34 +86,22 @@ class It<T> {
     );
   }
 
-  /// Returns an infinite random iterator over elements of 'a'.
-  public static function box<T> (a: Array<T>) {
-    var c = 0;
-    final len = a.length;
+  /// Returns an infinite random iterator over elements of 'arr'.
+  public static function box<T> (arr: Array<T>) {
+    final len = arr.length;
     if (len == 0)
       return It.empty();
 
-    function shuffle () {
-      var ix = len;
-      while (ix > 1) {
-        final i = Std.random(ix);
-        --ix;
-        if (i != ix) {
-          var tmp = a[i];
-          a[i] = a[ix];
-          a[ix] = tmp;
-        }
-      }
-    }
-    shuffle ();
-
+    final a = arr.copy();
+    Rnd.shuffle(a);
+    var c = 0;
     return new It(
       () -> true,
       () ->
         if (c < len)
           a[c++];
         else {
-          shuffle();
+          Rnd.shuffle(a);
           c = 0;
           a[c++];
         }
@@ -632,7 +620,8 @@ class It<T> {
   /// It creates a temporary array.
   public function shuffle (): It<T> {
     final a = to();
-    return It.box(a).take(a.length);
+    Rnd.shuffle(a);
+    return It.from(a);
   }
 
   /// Returns a tuple of It over the corresponding first and second element
