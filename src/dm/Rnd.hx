@@ -28,7 +28,7 @@ class Rnd {
     return Dec.round(n1 + Math.random() * (n2 - n1), d);
   };
 
-  /// Returns elements of 'a' randomly sorted.
+  /// Rearranges elements of 'a' randomly.
   public static function shuffle<T> (a: Array<T>) {
     var j: Int;
     var tmp: T;

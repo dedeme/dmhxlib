@@ -160,7 +160,7 @@ class Domo {
       case MOUSEOUT: "mouseout";
       case MOUSEOVER: "mouseover";
       case MOUSEUP: "mouseup";
-      case MOUSEWHEEL: "mouseweel";
+      case WHEEL: "wheel";
       case SELECT: "select";
       case SELECTSTART: "selectstart";
       case SUBMIT: "submit";
