@@ -7,7 +7,7 @@ package dm;
 
 /// Constants to use with '.on()'
 enum ActionType {
-  BLUR; CHANGE; CLICK; DBLCLICK; FOCUS; KEYDOWN; KEYPRESS; KEYUP;
+  BLUR; CHANGE; CLICK; DBLCLICK; FOCUS; INPUT; KEYDOWN; KEYPRESS; KEYUP;
   LOAD; MOUSEDOWN; MOUSEMOVE; MOUSEOUT; MOUSEOVER; MOUSEUP; WHEEL;
   SELECT; SELECTSTART; SUBMIT;
 }
@@ -151,6 +151,7 @@ class Domo {
       case CLICK: "click";
       case DBLCLICK: "dblclick";
       case FOCUS: "focus";
+      case INPUT: "input";
       case KEYDOWN: "keydown";
       case KEYPRESS: "keypress";
       case KEYUP: "keyup";
