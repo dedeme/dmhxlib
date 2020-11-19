@@ -4,6 +4,7 @@
 /// Class for envelopping DOM objects.
 
 package dm;
+import haxe.Constraints;
 
 /// Constants to use with '.on()'
 enum ActionType {
@@ -142,9 +143,7 @@ class Domo {
   }
 
   /// Adds an EventListener.
-  /// To replace it use obj.e.onXXX = Event. For example:
-  ///   td.e.onclick = e -> Ui.alert("Here");
-  public function on (type: ActionType, action: Dynamic -> Void): Domo {
+  public function on (type: ActionType, action: Function): Domo {
     var act = switch type {
       case BLUR: "blur";
       case CHANGE: "change";
