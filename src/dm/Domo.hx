@@ -4,6 +4,7 @@
 /// Class for envelopping DOM objects.
 
 package dm;
+
 import haxe.Constraints;
 
 /// Constants to use with '.on()'

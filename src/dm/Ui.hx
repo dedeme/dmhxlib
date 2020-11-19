@@ -4,6 +4,7 @@
 /// Utilities to access to DOM elements.
 package dm;
 
+import haxe.Constraints;
 import dm.It;
 import dm.Tp;
 import dm.Domo;
@@ -281,7 +282,7 @@ class Ui {
 
   /// Create a link to a function.
   ///  f : Function to execute.
-  public static function link (f:Dynamic -> Void): Domo {
+  public static function link (f: Function): Domo {
     return Q("span").att("style", "cursor:pointer").on(CLICK, f);
   }
 
