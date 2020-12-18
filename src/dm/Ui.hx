@@ -334,11 +334,12 @@ class Ui {
 
   /// Circle with a color.
   ///   color: Like "#d0ddde" or "rgb(245, 245, 248)".
-  public static function led (color: String): Domo {
+  ///   side : Width and height in pixels of led.
+  public static function led (color: String, side = 6): Domo {
     return Q("div")
       .style(
-        "padding:5px;" +
-         "border: 1px solid #002040;border-radius: 6px;" +
+        "padding:" + side + "px;" +
+         "border: 1px solid #002040;border-radius: " + side + "px;" +
          "background: " + color + ";"
       );
   }
