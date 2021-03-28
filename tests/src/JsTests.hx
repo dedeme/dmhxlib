@@ -6,7 +6,7 @@ import dm.Js;
 import dm.Opt;
 import haxe.ds.Option;
 
-class Tst {
+private class Tst {
   public final s: String;
   public final i: Int;
   var i2: Int = 0;

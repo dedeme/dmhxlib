@@ -13,6 +13,7 @@ class Tests {
     JsTests.run();
     DecTests.run();
     DtTests.run();
+    MacTests.run();
     PathTests.run();
     RndTests.run();
     StoreTests.run();
