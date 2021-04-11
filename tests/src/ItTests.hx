@@ -9,8 +9,8 @@ import dm.Tp3;
 
 class ItTests {
 
-  static function cb (n:Int, fn:(Int->Void)) {
-    fn(n + 1);
+  static function cb (n:Int, svfn:(String->Void)): Void {
+    haxe.Timer.delay(() -> svfn(Std.string(n)), 100);
   }
 
   public static function run() {
@@ -137,10 +137,11 @@ class ItTests {
     var sum = 0;
     It.from(is).each(n -> sum += n);
     t.eq(sum, 0);
+    var sumTx = "";
     It.from(is).eachSync(
       cb,
-      n -> sum += n,
-      () -> t.eq(sum, 0),
+      n -> sumTx += n,
+      () -> t.eq(sumTx, ""),
       (e) -> t.yes(false)
     );
     t.eq(It.from(is).reduce(0, (seed, n) -> return seed + n), 0);
@@ -161,11 +162,11 @@ class ItTests {
     sum = 0;
     It.from(is).each(n -> sum += n);
     t.eq(sum, 3632);
-    sum = 0;
+    var sumTx1 = "";
     It.from(is).eachSync(
       cb,
-      n -> sum += n,
-      () -> t.eq(sum, 3633),
+      n -> sumTx1 += n,
+      () -> t.eq(sumTx1, "3632"),
       (e) -> trace(e)
     );
     t.eq(It.from(is).reduce(0, (seed, n) -> return seed + n), 3632);
@@ -183,12 +184,11 @@ class ItTests {
     sum = 0;
     It.from(is).each(n -> sum += n);
     t.eq(sum, 6);
-    sum = 0;
-    var ix = 0;
+    var sumTx2 = "";
     It.from(is).eachSync(
       cb,
-      n -> sum += n + ix++,
-      () -> t.eq(sum, 12),
+      n -> sumTx2 += n,
+      () -> t.eq(sumTx2, "123"),
       (e) -> trace(e)
     );
     t.eq(It.from(is).reduce(0, (seed, n) -> return seed + n), 6);

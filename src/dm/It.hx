@@ -215,18 +215,23 @@ class It<T> {
   /// that runs 'go'. If some fail happends running 'fn' execute
   /// 'fail(exception)' (if defined). For example:
   ///
-  ///   static function cb (n: Int, fn: (Int->Void)) {
-  ///     fn(n + 1);
+  ///   static function cb (n: Int, svfn: (String->Void)): Void {
+  ///     haxe.Timer.delay(() -> svfn(Std.string(n)), 100);
   ///   }
   ///   ...
-  ///   sum = 0;
-  ///   var ix = 0;
+  ///   sumTx = 0;
   ///   It.from([1,2,3]).eachSync(
   ///     cb,
-  ///     n -> sum += n + ix,
-  ///     () -> t.eq(sum, 12),
+  ///     n -> sumTx2 += n,
+  ///     () -> t.eq(sumTx2, "123"),
   ///     (e) -> trace(e)
   ///   );
+  ///
+  /// With a client call 'cb' could be:
+  ///   static function cb (n: Int, svfn: (Map<String, Js> -> Void)): Void {
+  ///     final rq = {"n" => Js.wi(n)};
+  ///     client.send(rq, svfn);
+  ///   }
   public function eachSync<U> (
     fn: (T, (U -> Void)) -> Void,
     loop: (U) -> Void,
