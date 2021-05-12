@@ -219,7 +219,7 @@ class It<T> {
   ///     haxe.Timer.delay(() -> svfn(Std.string(n)), 100);
   ///   }
   ///   ...
-  ///   sumTx = 0;
+  ///   sumTx = "";
   ///   It.from([1,2,3]).eachSync(
   ///     cb,
   ///     n -> sumTx2 += n,

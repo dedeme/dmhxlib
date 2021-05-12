@@ -344,6 +344,27 @@ class Ui {
       );
   }
 
+  /// Returns a 'hrule' with a label.
+  ///   label: 'Hrule' label.
+  ///   margin: Length of line at left of title in pixels.
+  public static function hrule (label: String, margin = 50): Domo {
+    return Q("table")
+      .style(
+        "border-collapse: collapse;" +
+        "border : 0px;" +
+        "width : 100%")
+      .add(Q("tr")
+        .add(Q("td")
+          .style("width: " + margin + "px")
+          .add(Q("hr")))
+        .add(Q("td")
+          .style("width: 5px")
+          .text(" " + label + " "))
+        .add(Q("td")
+          .add(Q("hr"))))
+    ;
+  }
+
   /// Returns x position of mouse in browser window.
   public static function mouseX (ev: js.html.MouseEvent): Int {
     return js.Browser.document.documentElement.scrollLeft +
