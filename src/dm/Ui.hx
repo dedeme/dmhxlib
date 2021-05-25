@@ -358,7 +358,7 @@ class Ui {
           .style("width: " + margin + "px")
           .add(Q("hr")))
         .add(Q("td")
-          .style("width: 5px")
+          .style("white-space:nowrap; width: 5px")
           .text(" " + label + " "))
         .add(Q("td")
           .add(Q("hr"))))
